@@ -47,7 +47,7 @@ jobs:
       - name: AppImage
         uses: addnab/docker-run-action@v3
         with:
-          image: lil5/appimage-builder
+          image: lil5/appimage-builder:1.0.0-go-alpha
           options: -v ${{ github.workspace }}:/app
           shell: bash
           run: |
