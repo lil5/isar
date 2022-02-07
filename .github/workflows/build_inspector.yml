@@ -45,18 +45,25 @@ jobs:
           flutter config --enable-linux-desktop
           flutter build linux
       - name: AppImage
-        uses: addnab/docker-run-action@v3
+        uses: AppImageCrafters/build-appimage@master
         with:
-          image: lil5/appimage-builder:1.0.0-go-alpha
-          options: -v ${{ github.workspace }}:/app
-          shell: bash
-          run: |
-            cd /app/packages/isar_inspector/linux/appimage
-            VERSION=${{ github.ref }} appimage-builder --recipe AppImageBuilder.yml --skip-test
-      - name: Upload binary
-        uses: svenstaro/upload-release-action@v1-release
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: packages/isar_inspector/linux/appimage/Isar_Inspector_Linux.AppImage
-          asset_name: Isar_Inspector_Linux.AppImage
-          tag: ${{ github.ref }}
+          recipe: "./packages/isar_inspector/linux/appimage/AppImageBuilder.yml"
+        env:
+          UPDATE_INFO: gh-releases-zsync|IsarInspector|isar-inspector|latest|*x86_64.AppImage.zsync
+          APPIMAGE_PATH: packages/isar_inspector/linux/appimage
+        # - name: AppImage
+        #   uses: addnab/docker-run-action@v3
+        #   with:
+        #     image: lil5/appimage-builder:1.0.0-go-alpha
+        #     options: -v ${{ github.workspace }}:/app
+        #     shell: bash
+        #     run: |
+        #       cd /app/packages/isar_inspector/linux/appimage
+        #       VERSION=${{ github.ref }} appimage-builder --recipe AppImageBuilder.yml --skip-test
+        # - name: Upload binary
+        #   uses: svenstaro/upload-release-action@v1-release
+        #   with:
+        #     repo_token: ${{ secrets.GITHUB_TOKEN }}
+        #     file: packages/isar_inspector/linux/appimage/Isar_Inspector_Linux.AppImage
+        #     asset_name: Isar_Inspector_Linux.AppImage
+        #     tag: ${{ github.ref }}

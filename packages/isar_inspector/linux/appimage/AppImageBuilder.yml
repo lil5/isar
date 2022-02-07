@@ -6,17 +6,17 @@
 
 version: 1
 script:
- - rm -rf AppDir; mkdir AppDir
- - cp -r AppDir/../../../build/linux/x64/release/bundle/* AppDir/
- - mkdir -p AppDir/usr/share/icons/hicolor/scalable/apps/
- - cp AppDir/../../../../../.github/assets/isar.svg AppDir/usr/share/icons/hicolor/scalable/apps/dev.isar.isar-inspector.svg
+ - rm -rf $APPIMAGE_PATH/AppDir; mkdir $APPIMAGE_PATH/AppDir
+ - cp -r packages/isar_inspector/build/linux/x64/release/bundle/* $APPIMAGE_PATH/AppDir/
+ - mkdir -p $APPIMAGE_PATH/AppDir/usr/share/icons/hicolor/scalable/apps/
+ - cp .github/assets/isar.svg $APPIMAGE_PATH/AppDir/usr/share/icons/hicolor/scalable/apps/dev.isar.isar-inspector.svg
 AppDir:
-  path: ./AppDir
+  path: $APPIMAGE_PATH/AppDir
   app_info:
     id: dev.isar.isar-inspector
     name: Isar Inspector
     icon: dev.isar.isar-inspector
-    version: !ENV ${VERSION}
+    version: latest
     exec: isar_inspector
     exec_args: $@
 AppImage:
